@@ -1,0 +1,32 @@
+common:
+  batch_size: 16
+  num_workers: 4
+  image_size: 224
+
+action:
+  root_dir: "data/action/"
+  delete_base_dirs: ["action_data/", "/mnt/nfs/processed/"]
+  drop_unknown_label: True
+  split_type: "stratified"  # 'date' or 'stratified'
+  map_label:
+    grazing: 0
+    standing: 1
+    lying: 2
+    riding: 3
+    unknown: -1
+
+interaction:
+  root_dir: 'data/interaction/'
+  delete_base_dirs:
+    - 'runs/extraction/'
+  split_type: "handle"  # "video_ids" or "stratified" or "handle"
+  use_more_than_three_cattles: false # 3頭以上の牛の相互作用を使用するかどうか
+  map_label:
+    no_interaction: 0
+    # interaction: 1
+    interest: 1
+    conflict: 2
+    mount: 3
+  bin_map_label:
+    no_interaction: 0
+    interaction: 1

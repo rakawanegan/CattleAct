@@ -1,0 +1,47 @@
+defaults:
+  - data: action # conf/data/action.yaml を読み込む
+  - augmentation: image_default
+  - _self_
+  - override hydra/sweeper: optuna
+
+hydra:
+  job:
+    chdir: false
+  sweeper:
+    _target_: hydra_plugins.hydra_optuna_sweeper.optuna_sweeper.OptunaSweeper
+    sampler:
+      _target_: optuna.samplers.TPESampler 
+      seed: ${seed}
+    direction: maximize
+    storage: "sqlite:///action_aug_hpo_study.db"
+    study_name: cattle_action_aug_optimization
+    n_trials: 100
+    n_jobs: 1
+
+# プロジェクト全体の設定
+project_name: "CattleActionRecognition"
+work_dir: ${hydra:runtime.output_dir}
+seed: 42
+
+# Wandb
+wandb:
+  project: "wacv_cattle_activity_recognition_action" # Wandb上のプロジェクト名
+  name: ${now:%Y-%m-%d_%H-%M-%S}    # 各実行の名称 (タイムスタンプを推奨)
+  entity: null
+
+# モデル設定
+model:
+  name: "LitSTGCN"
+  model_kwargs:
+    in_channels: 3
+    graph_args:
+      layout: "cattle"
+      strategy: "spatial"
+    edge_importance_weighting: False
+
+# 学習設定
+training:
+  learning_rate: 1e-5
+  max_epochs: 50
+  accelerator: "auto"
+  devices: [2]

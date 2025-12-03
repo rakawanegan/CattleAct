@@ -1,0 +1,52 @@
+hydra:
+  job:
+    chdir: false
+
+defaults:
+  - _self_
+  - data: sample3
+
+# Debug Mode
+is_debug: false  # if true, use only 30 seconds of the video
+
+# GPU
+device: 0  # GPUの番号を指定。-1の場合はCPUを使用
+
+# Input Path
+sensor_data_base_dir: "data/20250305"
+
+checkpoint_dir: "checkpoints"
+data_dir: "data"
+
+# Weight & Config Path
+output_dir: "outputs/"
+yolo_model_path: "checkpoints/best.pt"
+deep_sort_config_path: "deep_sort_pytorch/configs/deep_sort.yaml"
+deep_sort_ckpt_path: "checkpoints/ckpt.t7"
+p_mat_suzume_to_drone: "checkpoints/suzume_to_drone_homography_matrix.npy"
+p_mat_drone_to_world: "checkpoints/drone_to_world_homography_matrix.npy"
+
+# Calculate Speed
+fps: 5  # Noneの場合は動画のfpsを使用
+
+# YOLO
+imgsz: 1280
+iou: 0.1
+conf: 0.2
+
+# Matching
+matching_threshold: 0.5
+gps_buff: 5  # m
+drop_point: [1225.82, 1098.08]  # 木に遮蔽されている部分(x, y)
+use_abs_sim: False
+event_time_duration: 10
+drop_rotation_match_distance: 1
+drop_idiot_match_distance: 20
+matching_time_limit: 600  # seconds
+
+embedding_dir: "./embeddings"  # precomputeスクリプトで保存したディレクトリ名
+action_model:
+  path: "./checkpoints/action_metric_learning.ckpt"
+
+interaction_model:
+  path: "./checkpoints/interaction_metric_learning.ckpt"

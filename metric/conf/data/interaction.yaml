@@ -1,0 +1,28 @@
+# 相互作用データセットのルートディレクトリ
+root_dir: 'data/interaction/'
+
+# master.csvに記録されたパスから削除するプレフィックスのリスト
+delete_base_dirs:
+  - 'runs/extraction/'
+  # 他にも削除すべきパスのプレフィックスがあれば追加
+
+# データローダーの設定
+# batch_size: 32
+num_workers: 4
+
+split_type: handle  # "video_ids" or "stratified" or "handle"
+
+classes_per_batch: 4
+samples_per_class: 4
+
+# map_label
+use_more_than_three_cattles: false # 3頭以上の牛の相互作用を使用するかどうか
+bin_map_label:
+  no_interaction: 0
+  interaction: 1
+
+map_label:
+  no_interaction: 0
+  interest: 1
+  conflict: 2
+  mount: 3

@@ -1,0 +1,3 @@
+bash interaction_ablation_study_pretrain.sh
+bash interaction_ablation_study_aug.sh
+bash interaction_ablation_study_loss.sh

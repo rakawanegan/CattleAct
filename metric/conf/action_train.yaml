@@ -1,0 +1,39 @@
+defaults:
+  - data: action # conf/data/action.yaml を読み込む
+  - augmentation: image_default
+
+hydra:
+  job:
+    chdir: false
+
+# プロジェクト全体の設定
+project_name: "wacv_cattle_activity_recognition_pretrain"
+work_dir: ${hydra:runtime.output_dir}
+seed: 42
+
+# Wandb
+wandb:
+  project: "wacv_cattle_activity_recognition_pretrain" # Wandb上のプロジェクト名
+  name: ${now:%Y-%m-%d_%H-%M-%S}    # 各実行の名称 (タイムスタンプを推奨)
+  entity: null
+
+# モデル設定
+model:
+  name: "LitSTGCN"
+  embedding_size: 256
+  margin: 0.5
+  reg_loss_weight: 0.1     # 正則化損失の重み
+  sigma_s_squared: 10.0   # 潜在変数の分散
+  model_kwargs:
+    in_channels: 3
+    graph_args:
+      layout: "cattle"
+      strategy: "spatial"
+    edge_importance_weighting: False
+
+# 学習設定
+training:
+  learning_rate: 1e-5
+  max_epochs: 50
+  accelerator: "auto"
+  devices: [1]

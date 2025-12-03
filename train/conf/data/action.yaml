@@ -1,0 +1,7 @@
+root_dir: "data/action/"
+delete_base_dirs: ["action_data/", "/mnt/nfs/processed/"]
+drop_unknown_label: True
+batch_size: 16
+num_workers: 4
+image_size: 224
+split_type: "stratified"  # "date" or "stratified"

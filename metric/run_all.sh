@@ -1,0 +1,3 @@
+python3 metric/interaction_split_image_metric_learning_single_backbone.py seed=0 && python3 metric/interaction_split_image_metric_learning_single_backbone.py seed=1 && python3 metric/interaction_split_image_metric_learning_single_backbone.py seed=2 && python3 metric/interaction_split_image_metric_learning_single_backbone.py seed=3 && python3 metric/interaction_split_image_metric_learning_single_backbone.py seed=4
+
+python3 metric/interaction_split_image_metric_two_backbone.py seed=0 && python3 metric/interaction_split_image_metric_two_backbone.py seed=1 && python3 metric/interaction_split_image_metric_two_backbone.py seed=2 && python3 metric/interaction_split_image_metric_two_backbone.py seed=3 && python3 metric/interaction_split_image_metric_two_backbone.py seed=4

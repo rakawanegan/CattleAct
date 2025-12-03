@@ -1,0 +1,42 @@
+# デフォルトで読み込むデータ設定ファイルを指定
+defaults:
+  - data: interaction # 相互作用データ用の設定 'conf/data/interaction.yaml' を参照
+  - augmentation: image_default
+  - main_loss: ldam  # "cross_entropy" or "focal" or "ldam"
+  - pre_fusion_loss: infonce  # "triplet" or "infonce", "none"
+
+# Hydraの実行ディレクトリ設定
+hydra:
+  job:
+    chdir: false
+
+# プロジェクト全体の設定
+project_name: "CattleInteractionRecognition_interaction" # プロジェクト名を変更
+work_dir: ${hydra:runtime.output_dir}
+seed: 42
+
+# Wandbの設定
+wandb:
+  project: "wacv_cattle_activity_recognition_interaction"
+  name: "interaction_${now:%Y-%m-%d_%H-%M-%S}" # 実行名を分かりやすく変更 (推奨)
+  entity: null # 自身のWandbエンティティ名を設定
+
+# モデル設定 (LitSTGCNの引数に合わせて修正)
+model:
+  fusion_type: attention # attention or mlp
+  pooling_type: flatten
+  model_kwargs:
+    in_channels: 3
+    graph_args:
+      layout: "cattle"
+      strategy: "spatial"
+    edge_importance_weighting: false  # If True, adds a learnable importance weighting to the edges of the graph
+
+# 学習設定
+training:
+  learning_rate: 1e-4
+  max_epochs: 100
+  accelerator: "auto"
+  devices: [1]
+  freeze_backbone: false
+  pretrained_backbone: true
