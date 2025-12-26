@@ -1,4 +1,13 @@
-# CattleAct: Interaction Understanding for Smart Pasture Management
+# CattleAct
+
+[![WACV 2026](https://img.shields.io/badge/WACV-2026-4b44ce.svg)](https://wacv2026.thecvf.com/)
+[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/2512.16133)
+
+This repository contains the official implementation of the **WACV 2026** paper:
+
+> **Interaction-via-Actions: Cattle Interaction Detection with Joint Learning of Action-Interaction Latent Space**
+
+In this work, we propose **CattleAct**, a data-efficient framework for detecting behavioral interactions among grazing cattle...
 
 ## Authors
 
